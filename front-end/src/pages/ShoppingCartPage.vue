@@ -11,7 +11,7 @@
     </div>
     <button class='checkout-button'>Proceed to Checkout</button>
   </div>
-  <div v-if='cartItems.length === 0'>
+  <div v-else>
     There are no items in your cart
   </div>
 </template>
