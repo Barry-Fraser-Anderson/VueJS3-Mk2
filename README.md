@@ -6,6 +6,7 @@ From the LinkedIn course:
 https://www.linkedin.com/learning/vue-js-creating-and-hosting-a-full-stack-site-21646902
 
 Vue3
+Node.js
 
 <div>
 <img src="https://user-images.githubusercontent.com/112425916/226207441-386b4820-579d-4483-83ac-5cedc29e9027.png" width="240px">
