@@ -20,7 +20,7 @@ createApp(App)
           component: ProductsPage,
         },
         {
-          path: '/product/:productId',
+          path: '/products/:productId',
           component: ProductDetailPage,
         },
       ],
