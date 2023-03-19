@@ -15,27 +15,33 @@ app.get('/products', (req, res) => {
   res.json(products);
 });
 
+function populateCartIds(ids) {
+  return ids.map(id => products.find(roduct => product.id === id));
+}
+
 app.get('/cart', (req, res) => {
-  res.json(cartItems);
+  const populatedCart = populateCartIds(cartItems);
+  res.json(populatedCart);
 });
 
 app.get('/products/:productId', (req, res) => {
   const productId = req.params.productId;
   const product = products.find(product => product.id === productId);
-  cartItems.push(product);
-  res.json(cartItems);
+  res.json(product);
 });
 
 app.post('/cart', (req, res) => {
   const productId = req.body.id;
-  const product = products.find(product => product.id === productId);
-  res.json(product);
+  cartItems.push(productId);
+  const populatedCart = populateCartIds(cartItems);
+  res.json(populatedCart);
 });
 
 app.delete('/cart/:productId', (req, res) => {
   const productId = req.params.productId;
   const cartItems = cartItems.filter(product => product.id !== productId);
-  res.json(cartItems);
+  const populatedCart = populateCartIds(cartItems);
+  res.json(populatedCart);
 });
 
 app.listen(8000, () => {
