@@ -1,26 +1,35 @@
 import express from 'express';
-import { cartItems as cartItemsRsw, products as productsRaw } from './temp-data.js';
+import { MongoClient } from 'mongodb';
 
-let cartItems = cartItemsRsw;
+import { cartItems as cartItemsRaw, products as productsRaw } from './temp-data.js';
+
+let cartItems = cartItemsRaw;
 let products = productsRaw;
+const DATABASE = 'mongodb+srv://barryanderson:<PASSWORD>@cluster0.iiobiwd.mongodb.net/vue-db';
+const URL = DATABASE.replace('<PASSWORD>', 'xxxxxxxxxxx');
 
+const client = new MongoClient(URL);
 const app = express();
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello!');
+app.get('/products', async (req, res) => {
+  await client.connect();
+  const db = client.db('vue-db');
+  const products = await db.collection('products').find({}).toArray();
+  res.send(products);
 });
 
-app.get('/products', (req, res) => {
-  res.json(products);
-});
-
-function populateCartIds(ids) {
-  return ids.map(id => products.find(roduct => product.id === id));
+async function populateCartIds(ids) {
+  await client.connect();
+  const db = client.db('vue-db');
+  return Promise.all(ids.map(id => db.collection('products').findOne({ id })));
 }
 
-app.get('/cart', (req, res) => {
-  const populatedCart = populateCartIds(cartItems);
+app.get('/users/:userId/cart', async (req, res) => {
+  await client.connect();
+  const db = client.db('vue-db');
+  const user = await db.collection('users').findOne({ id: req.params.userId });
+  const populatedCart = await populateCartIds(user.cartItems);
   res.json(populatedCart);
 });
 
