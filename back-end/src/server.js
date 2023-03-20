@@ -33,9 +33,11 @@ app.get('/users/:userId/cart', async (req, res) => {
   res.json(populatedCart);
 });
 
-app.get('/products/:productId', (req, res) => {
+app.get('/products/:productId', async (req, res) => {
+  await client.connect();
+  const db = client.db('vue-db');
   const productId = req.params.productId;
-  const product = products.find(product => product.id === productId);
+  const product = await db.collection('products').findOne({ id: productId });
   res.json(product);
 });
 
