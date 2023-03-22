@@ -1,6 +1,6 @@
 <template>
   <h1>Shopping Cart</h1>
-  <ShoppingCartList :products='cartItems' />
+  <ShoppingCartList @remove-from-cart='removeFromCart($event)' :products='cartItems' />
 </template>
 
 <script>
@@ -15,6 +15,13 @@ export default {
   data() {
     return {
       cartItems: [],
+    }
+  },
+  methods: {
+    async removeFromCart(productId) {
+      const response = await axios.delete(`/api/users/12345/cart/${productId}`);
+      const upDatedCart = response.data;
+      this.cartItems = upDatedCart;
     }
   },
   async created() {
