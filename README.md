@@ -6,7 +6,7 @@ From the LinkedIn course:
 https://www.linkedin.com/learning/vue-js-creating-and-hosting-a-full-stack-site-21646902
 
 ## Description
-A simple webshop with a RESTful API
+A simple webshop, with a RESTful API using NodeJS and MongoDB
 
 ## Topics Covered
 - Vue3
